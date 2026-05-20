@@ -7,11 +7,14 @@ const TILE_CACHE = 'osm-tiles-v1';
 const MAX_TILES = 2000;
 
 // Pre-cache these on install
+// Base path — matches astro.config.mjs base
+const BASE = '/kuruma-tabi-note';
+
 const PRECACHE_URLS = [
-  '/',
-  '/index.html',
-  '/favicon.svg',
-  '/manifest.webmanifest',
+  `${BASE}/`,
+  `${BASE}/index.html`,
+  `${BASE}/favicon.svg`,
+  `${BASE}/manifest.webmanifest`,
 ];
 
 // Install: pre-cache shell
@@ -124,7 +127,7 @@ self.addEventListener('fetch', (event) => {
           return response;
         } catch {
           const cached = await cache.match(request);
-          return cached || await cache.match('/index.html') || new Response('オフラインです', { status: 408 });
+          return cached || await cache.match(`${BASE}/index.html`) || new Response('オフラインです', { status: 408 });
         }
       })
     );
